@@ -133,8 +133,20 @@ string CSQLiteDbWorker::addData(string cpu, string mem, string temp, string devI
 		string resp = "INSERT INTO TEMP(ID, idDevice, date, temp, CPU, RAM) "  \
 			"VALUES(NULL, '" + devId + "', '" + "" + "', '" + temp + "', '" + cpu + "', '" + mem + "'); ";
 		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
 	}
-	return "";
+	return errBd;
 }
 
 CSQLiteDbWorker::~CSQLiteDbWorker() {
@@ -147,4 +159,105 @@ string CSQLiteDbWorker::Close()
 	sqlite3_close(db«Point);
 	db«Point = NULL;
 	return string();
+}
+
+string CSQLiteDbWorker::setCoolerSpeed(string arg) {
+	char* zErrMsg = 0;
+	if (db«Point != NULL) {
+		string resp = "UPDATE frontData SET value = \'" + arg + "\' WHERE nameVarible = \"coolerSpeed\";";
+		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
+	}
+	return zErrMsg;
+}
+string CSQLiteDbWorker::setPumpColor(string arg) {
+	char* zErrMsg = 0;
+	if (db«Point != NULL) {
+		string resp = "UPDATE frontData SET value = \'" + arg + "\' WHERE nameVarible = \"pumpColor\";";
+		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
+	}
+	return zErrMsg;
+}
+string CSQLiteDbWorker::setCoolerColor(string arg) {
+	char* zErrMsg = 0;
+	if (db«Point != NULL) {
+		string resp = "UPDATE frontData SET value = \'" + arg + "\' WHERE nameVarible = \"coolerColor\";";
+		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
+	}
+	return zErrMsg;
+}
+string CSQLiteDbWorker::setSwitchAutoSpeedControl(string arg) {
+	char* zErrMsg = 0;
+	if (db«Point != NULL) {
+		string resp = "UPDATE frontData SET value = \'" + arg + "\' WHERE nameVarible = \"switchAutoSpeedControl\";";
+		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
+	}
+	return zErrMsg;
+}
+string CSQLiteDbWorker::setPumpSpeed(string arg) {
+	char* zErrMsg = 0;
+	if (db«Point != NULL) {
+		string resp = "UPDATE frontData SET value = \'" + arg + "\' WHERE nameVarible = \"pumpSpeed\";";
+		int rc = sqlite3_exec(db«Point, resp.c_str(), callback, 0, &zErrMsg);
+		if (rc != SQLITE_OK) {
+			for (int i = 0;; i++) {
+				if (zErrMsg[i] == '\0') {
+					break;
+				}
+				errBd += zErrMsg[i];
+			}
+			sqlite3_free(zErrMsg);
+		}
+		else {
+			return "ok";
+		}
+	}
+	return zErrMsg;
 }

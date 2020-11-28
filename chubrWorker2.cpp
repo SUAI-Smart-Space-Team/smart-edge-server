@@ -19,8 +19,14 @@ string addData(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	string mem = SampleString(postPar, (int)postPar.find("memUsed") + 7, (int)postPar.find("_", (int)postPar.find("memUsed")));
 	string devId = SampleString(postPar, (int)postPar.find("=", (int)postPar.find("devId")), (int)postPar.find("_", (int)postPar.find("devId")));
 
-	pWeb->out(createrJson("result", "ok", 0, ""));
-	pDB->addData(cpu, mem, temp, devId);
+	//pWeb->out(createrJson("result", "ok", 0, ""));
+	string answer = pDB->addData(cpu, mem, temp, devId);
+	if (answer != "ok") {
+		pWeb->out(createrJson("error", answer, 0, ""));
+	}
+	else {
+		pWeb->out(createrJson("result", "ok", 0, ""));
+	}
 	return "";
 }
 
@@ -66,15 +72,83 @@ string getTelemetry(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	return "";
 }
 
+string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
+	int pos = -1;
+	string json;
+	postPar = HandlerSpecialCharacters(postPar, "rgb", "");
+	bool ref = false;
+	string error;
+	for (;;) {
+		pos = postPar.find("=", pos + 1);
+		if (pos == -1) {
+			break;
+		}
+		int nach = postPar.rfind("_", pos);
+		int kon = postPar.find("_", pos);
+		string nameVariable = SampleString(postPar, nach, pos);
+		string  arg = SampleString(postPar, pos, kon);
+		string sqlRequest;
+		string req;
+
+		if (nameVariable == "coolerSpeed") {
+			req = pDB->setCoolerSpeed(arg);
+		}
+		if (nameVariable == "pumpColor") {
+			req = pDB->setPumpColor(arg);
+		}
+		if (nameVariable == "coolerColor") {
+			req = pDB->setCoolerSpeed(arg);
+		}
+		if (nameVariable == "switchAutoSpeedControl") {
+			req = pDB->setSwitchAutoSpeedControl(arg);
+		}
+		if (nameVariable == "pumpSpeed") {
+			req = pDB->setPumpSpeed(arg);
+		}
+		//if (sqlRequest != "") {
+		//	dbWorker(sqlRequest);
+		//	if (errBd == "") {
+		//		json += createrJson(nameVariable, arg, 0, createrJson("result", "ok", 0, ""));
+		//	}
+		//	else {
+		//		json += createrJson(nameVariable, arg, 0, createrJson("result", "error - " + errBd, 0, createrJson("sql request", sqlRequest, 0, "")));
+		//		errBd = "";
+		//	}
+		//}
+		if (req != "") {
+			if (req == "ok") {
+				json = createrJson("ok", nameVariable + "=" + arg, 0, json);
+			}
+			else {
+				json = createrJson("error", req, 0, json);
+			}
+		}
+	}
+	if (ref == true) {
+		pWeb->out("");
+	}
+	//if (json == "") {
+	//	//standartOut(createrJson("error", "Invalid argument nameVariable", 0, ""));
+	//	pWeb->out("<html><head><meta http-equiv =\"refresh\" content =\"1;URL=https://suai.chupr.ru\"/></head></html>");
+
+	//}
+	//else {
+	//	//standartOut(json);
+	//	pWeb->out("<html><head><meta http-equiv =\"refresh\" content =\"1;URL=https://suai.chupr.ru\"/></head></html>");
+
+	//}
+	pWeb->out(json);
+	return "";
+}
 
 int main()
 {
-//    CSQLiteDbWorker db;
-    CDbWorker* pDB = new  CSQLiteDbWorker;
+	//    CSQLiteDbWorker db;
+	CDbWorker* pDB = new  CSQLiteDbWorker;
 
-    pDB->init("");
-    CWebServerWorker* pWeb = new CIISWorker;
-    string par = pWeb->receiveGetPar();
+	pDB->init("");
+	CWebServerWorker* pWeb = new CIISWorker;
+	string par = pWeb->receiveGetPar();
 	string method = SampleString(par, (int)par.find("=", (int)par.find("method")), (int)par.find("_", (int)par.find("method")));
 	if (method == "addData") {
 		addData(par, pWeb, pDB);
@@ -89,25 +163,14 @@ int main()
 		return 0;
 	}
 
-	//if (method == "setValue") {
-	//	//setValue(getPar);
-	//	return 0;
-	//}
+	if (method == "setValue") {
+		setValue(par, pWeb, pDB);
+		return 0;
+	}
 	pWeb->out(createrJson("error", "Invalid argument method", 0, ""));
 	return 0;
 
-    
-    delete pWeb;
-    delete pDB;
+
+	delete pWeb;
+	delete pDB;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

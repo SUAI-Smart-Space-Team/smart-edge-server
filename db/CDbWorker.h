@@ -24,5 +24,12 @@ public:
 	virtual string getRAM() = 0;
 	virtual string getCPU() = 0;
 	virtual string getTemp() = 0;
-}; 
+
+	virtual string setCoolerSpeed(string arg) = 0;
+	virtual string setPumpColor(string arg) = 0;
+	virtual string setCoolerColor(string arg) = 0;
+	virtual string setSwitchAutoSpeedControl(string arg) = 0;
+	virtual string setPumpSpeed(string arg) = 0;
+
+};
 

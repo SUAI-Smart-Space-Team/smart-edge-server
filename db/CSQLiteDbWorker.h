@@ -3,7 +3,7 @@
 #include "sqlite3.h"
 #include "Tools.h"
 class CSQLiteDbWorker :
-    public CDbWorker
+	public CDbWorker
 {
 public:
 	CSQLiteDbWorker();
@@ -20,6 +20,12 @@ public:
 	string getCPU();
 	string getTemp();
 
+
+	string setCoolerSpeed(string arg);
+	string setPumpColor(string arg);
+	string setCoolerColor(string arg);
+	string setSwitchAutoSpeedControl(string arg);
+	string setPumpSpeed(string arg);
 private:
 	sqlite3* db«Point;
 public:

@@ -29,7 +29,7 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 		}
 		getString = getString + comment[i];
 	}
-	//getString = "chubrWorker.cgi?method=addData&temp=666_memUsed=777_cpu=1.23&devId=testStand";
+	getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
 	getString = "_" + getString + "_";
 	for (;;) {
 		int rasp = getString.find("&");
@@ -38,6 +38,7 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 		}
 		getString[rasp] = '_';
 	}
+	//out(getString+"<br>");
 	return getString;
 }
 CIISWorker::CIISWorker() {
