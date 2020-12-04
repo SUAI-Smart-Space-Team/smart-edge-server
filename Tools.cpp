@@ -214,18 +214,3 @@ string createrJson1(string namePar, string strPar, int intPar, string oldJson) {
         return "[{" + json + "}]";
     }
 }
-string HandlerSpecialCharacters(string url, string designation, string  replacement) {
-    int nach = 0;
-    int kon = 0;
-    string url1;
-    for (;;) {
-        int tmp = url.find(designation);
-        if (tmp == -1) {
-            break;
-        }
-        url1 = SampleString(url, nach - 1, tmp) + replacement;
-        url1 += SampleString(url, tmp + designation.size() - 1, url.size());
-        url = url1;
-    }
-    return url;
-}
