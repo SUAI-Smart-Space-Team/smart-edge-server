@@ -1,7 +1,7 @@
 #pragma once
 #include "CDbWorker.h"
 #include "sqlite3.h"
-#include "Tools.h"
+#include "../Tools.h"
 class CSQLiteDbWorker :
 	public CDbWorker
 {

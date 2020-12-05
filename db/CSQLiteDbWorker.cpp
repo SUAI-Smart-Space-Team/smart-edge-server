@@ -1,10 +1,10 @@
 #include "CSQLiteDbWorker.h"
 #include <string>
 #include "sqlite3.h"
-#include "Tools.h"
+#include "../Tools.h"
 #include <time.h>
 
-#pragma warning(disable : 4996)  
+
 
 using namespace std;
 

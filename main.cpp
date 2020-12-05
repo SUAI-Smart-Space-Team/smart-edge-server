@@ -1,9 +1,6 @@
-﻿// chubrWorker2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
-#include "CSQLiteDbWorker.h"
-#include "CIISWorker.h"
+﻿#include <iostream>
+#include "db/CSQLiteDbWorker.h"
+#include "server/CIISWorker.h"
 #include <string>
 #include "Tools.h"
 
