@@ -9,17 +9,16 @@ using namespace std;
 
  
 string SampleString(const string arg,int from,int to){
-	string str;
-	for(int i=from+1;i<to;i++){
-		str=str+arg[i];
-	}
-	return str;
+    if (to-from<0) {
+        return "";
+    }
+	return arg.substr(from+1,to-from-1);
 } 
 string GetStringMon(){
 	time_t rawtime = time (NULL);
     struct tm timeinfo;
     localtime_s(&timeinfo, &rawtime);
-	char cmd[100];
+	char cmd[20];
     sprintf_s(cmd, "%d-%d", timeinfo.tm_year+1900,timeinfo.tm_mon+1);
 	string tmplog;
 	for (int i=0;i<100;i++){

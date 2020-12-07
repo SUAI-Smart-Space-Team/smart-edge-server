@@ -30,7 +30,7 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 		}
 		getString = getString + comment[i];
 	}
-	getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
+//		getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
 	getString.insert(0, "_");
 	getString.insert(getString.size(), "_");
 	for (;;) {

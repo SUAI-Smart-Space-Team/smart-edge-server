@@ -24,7 +24,7 @@ string addData(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	else {
 		pWeb->out(createrJson("result", "ok", 0, ""));
 	}
-	return "";
+	return "ok";
 }
 
 
@@ -41,7 +41,7 @@ string getConfiguration(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) 
 	json = createrJson("coolerSpeed", pDB->getCoolerSpeed(), 0, json);
 
 	pWeb->out(json);
-	return "";
+	return "ok";
 }
 
 
@@ -66,7 +66,7 @@ string getTelemetry(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	json = createrJson1("idDevice", pDB->getidDevice(), 0, json);
 
 	pWeb->out(json);
-	return "";
+	return "ok";
 }
 
 string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
@@ -135,13 +135,12 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 
 	//}
 	pWeb->out(json);
-	return "";
+	return "ok";
 }
 
 int main()
 {
 	//    CSQLiteDbWorker db;
-	string hh = GetStringMon();
 	CDbWorker* pDB = new  CSQLiteDbWorker;
 
 	pDB->init("");
