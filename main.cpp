@@ -165,9 +165,8 @@ int main()
 		return 0;
 	}
 	pWeb->out(createrJson("error", "Invalid argument method", 0, ""));
-	return 0;
-
-
 	delete pWeb;
 	delete pDB;
+	return 0;
+
 }
