@@ -2,6 +2,7 @@
 #pragma once
 using namespace std;
 string SampleString(string arg,int nach,int kon);
+string GetStringDate();
 string GetStringMon();
 string RemoveSpace(string arg);
 string createrJson(string namePar, string strPar, int intPar, string oldJson);

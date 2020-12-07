@@ -1,7 +1,7 @@
 ﻿#include <iostream>
+#include <string>
 #include "db/CSQLiteDbWorker.h"
 #include "server/CIISWorker.h"
-#include <string>
 #include "Tools.h"
 
 
@@ -141,6 +141,7 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 int main()
 {
 	//    CSQLiteDbWorker db;
+	string hh = GetStringMon();
 	CDbWorker* pDB = new  CSQLiteDbWorker;
 
 	pDB->init("");

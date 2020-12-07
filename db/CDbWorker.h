@@ -15,7 +15,7 @@ public:
 	virtual string init(string path)=0;//open Db
 	virtual string addData(string cpu, string mem, string temp, string devId)=0;
 	virtual string getPumpColor()=0;
-	virtual ~CDbWorker();
+	virtual ~CDbWorker() = default;
 	virtual string getCoolerColor() = 0;
 	virtual string getPumpSpeed() = 0;
 	virtual string getCoolerSpeed() = 0	;

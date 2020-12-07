@@ -1,30 +1,13 @@
-#include "CSQLiteDbWorker.h"
 #include <string>
 #include "sqlite3.h"
-#include "../Tools.h"
 #include <time.h>
+#include "CSQLiteDbWorker.h"
+#include "../Tools.h"
 
 
 
 using namespace std;
 
-string GetStringDate() {
-	time_t rawtime = time(NULL);
-	struct tm* timeinfo = localtime(&rawtime);
-	string t;
-	char comment[256];
-	for (int i = 0; i < sizeof comment; i++) {
-		comment[i] = NULL;
-	}
-	sprintf(comment, "%02d:%02d:%02d  %02d.%02d.%d", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec, timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900);
-	for (int i = 0; i < sizeof comment; i++) {
-		if (comment[i] == NULL) {
-			break;
-		}
-		t = t + comment[i];
-	}
-	return t;
-}
 
 string callbackStr;
 string errBd;
@@ -51,8 +34,8 @@ string CSQLiteDbWorker::init(string path) {//open db
 		Close();
 	}
 	char* zErrMsg = 0;
-	int rc;
-	char* sql;
+	int rc = 0;
+	char* sql = NULL;
 	rc = sqlite3_open("chubrWorker.dblite", &dbÇPoint);
 	if (rc) {
 		return "error";
@@ -151,14 +134,13 @@ string CSQLiteDbWorker::addData(string cpu, string mem, string temp, string devI
 
 CSQLiteDbWorker::~CSQLiteDbWorker() {
 	Close();
-	return;
 }
 
 string CSQLiteDbWorker::Close()
 {
 	sqlite3_close(dbÇPoint);
 	dbÇPoint = NULL;
-	return string();
+	return "ok";
 }
 
 string CSQLiteDbWorker::setCoolerSpeed(string arg) {

@@ -1,7 +1,7 @@
-#include "CIISWorker.h"
 #include <string>
 #include <iostream>
 #include <windows.h>
+#include "CIISWorker.h"
 using namespace std;
 
 string CIISWorker::out(string outputText) {//standard output
@@ -30,8 +30,9 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 		}
 		getString = getString + comment[i];
 	}
-	//getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
-	getString = "_" + getString + "_";
+	getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
+	getString.insert(0, "_");
+	getString.insert(getString.size(), "_");
 	for (;;) {
 		int rasp = getString.find("&");
 		if (rasp == -1) {
