@@ -146,29 +146,6 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 
 int main()
 {
-	int pos = -1;
-	string jsonStr;
-	bool ref = false;
-	string error;
-
-	rapidjson::Document json;
-	json.SetObject();
-	rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
-
-
-
-	json.AddMember("first", "1", allocator); 
-	json.AddMember("seckond", "2", allocator);
-	rapidjson::Value object(rapidjson::kObjectType);
-	object.AddMember("a", "tree", allocator);
-	object.AddMember("b", "flower", allocator);
-	json.AddMember("object", object, allocator);
-
-	StringBuffer buffer;
-	Writer<StringBuffer> writer(buffer);
-	json.Accept(writer);
-	jsonStr = buffer.GetString();
-
 	CDbWorker* pDB = new  CSQLiteDbWorker;
 
 	pDB->init("");
