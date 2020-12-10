@@ -1,7 +1,7 @@
 #include <string>
 #pragma once
 using namespace std;
-string SampleString(string arg,int nach,int kon);
+string SampleString(const string &arg,int nach,int kon);
 string GetStringDate();
 string GetStringMon();
 string RemoveSpace(string arg);

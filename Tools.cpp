@@ -8,7 +8,7 @@ using namespace std;
 
 
  
-string SampleString(const string arg,int from,int to){
+string SampleString(const string &arg,int from,int to){
     if (to-from<0) {
         return "";
     }

@@ -3,8 +3,13 @@
 #include "db/CSQLiteDbWorker.h"
 #include "server/CIISWorker.h"
 #include "Tools.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 
+
+using namespace rapidjson;
 
 
 string addData(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
@@ -71,11 +76,15 @@ string getTelemetry(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 
 string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	int pos = -1;
-	string json;
 	postPar = HandlerSpecialCharacters(postPar, "rgb", "");
 	bool ref = false;
 	string error;
+
+	rapidjson::Document json;
+	json.SetObject();
+	rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
 	for (;;) {
+		rapidjson::Value object(rapidjson::kObjectType);
 		pos = postPar.find("=", pos + 1);
 		if (pos == -1) {
 			break;
@@ -102,22 +111,16 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 		if (nameVariable == "pumpSpeed") {
 			req = pDB->setPumpSpeed(arg);
 		}
-		//if (sqlRequest != "") {
-		//	dbWorker(sqlRequest);
-		//	if (errBd == "") {
-		//		json += createrJson(nameVariable, arg, 0, createrJson("result", "ok", 0, ""));
-		//	}
-		//	else {
-		//		json += createrJson(nameVariable, arg, 0, createrJson("result", "error - " + errBd, 0, createrJson("sql request", sqlRequest, 0, "")));
-		//		errBd = "";
-		//	}
-		//}
 		if (req != "") {
 			if (req == "ok") {
-				json = createrJson("ok", nameVariable + "=" + arg, 0, json);
+				rapidjson::Value object(rapidjson::kObjectType);
+				object.AddMember("result", "ok", allocator);
+				//object.AddMember("nameVariable", arg.c_str(), allocator);
+				//jsonStr = createrJson("ok", nameVariable + "=" + arg, 0, json);
 			}
 			else {
-				json = createrJson("error", req, 0, json);
+				//jsonStr = createrJson("error", req, 0, json);
+				object.AddMember("result", "error", allocator);
 			}
 		}
 	}
@@ -134,13 +137,38 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	//	pWeb->out("<html><head><meta http-equiv =\"refresh\" content =\"1;URL=https://suai.chupr.ru\"/></head></html>");
 
 	//}
-	pWeb->out(json);
+	StringBuffer buffer;
+	Writer<StringBuffer> writer(buffer);
+	json.Accept(writer);
+	pWeb->out(buffer.GetString());
 	return "ok";
 }
 
 int main()
 {
-	//    CSQLiteDbWorker db;
+	int pos = -1;
+	string jsonStr;
+	bool ref = false;
+	string error;
+
+	rapidjson::Document json;
+	json.SetObject();
+	rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
+
+
+
+	json.AddMember("first", "1", allocator); 
+	json.AddMember("seckond", "2", allocator);
+	rapidjson::Value object(rapidjson::kObjectType);
+	object.AddMember("a", "tree", allocator);
+	object.AddMember("b", "flower", allocator);
+	json.AddMember("object", object, allocator);
+
+	StringBuffer buffer;
+	Writer<StringBuffer> writer(buffer);
+	json.Accept(writer);
+	jsonStr = buffer.GetString();
+
 	CDbWorker* pDB = new  CSQLiteDbWorker;
 
 	pDB->init("");
@@ -149,19 +177,27 @@ int main()
 	string method = SampleString(par, (int)par.find("=", (int)par.find("method")), (int)par.find("_", (int)par.find("method")));
 	if (method == "addData") {
 		addData(par, pWeb, pDB);
+		delete pWeb;
+		delete pDB;
 		return 0;
 	}
 	if (method == "getConfiguration") {
 		getConfiguration(par, pWeb, pDB);
+		delete pWeb;
+		delete pDB;
 		return 0;
 	}
 	if (method == "getTelemetry") {
 		getTelemetry(par, pWeb, pDB);
+		delete pWeb;
+		delete pDB;
 		return 0;
 	}
 
 	if (method == "setValue") {
 		setValue(par, pWeb, pDB);
+		delete pWeb;
+		delete pDB;
 		return 0;
 	}
 	pWeb->out(createrJson("error", "Invalid argument method", 0, ""));
