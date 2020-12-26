@@ -17,12 +17,9 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 	for (int i = 0; i < sizeof comment; i++) {
 		comment[i] = NULL;
 	}
-	char szName[1024];
-	for (int i = 0; i < sizeof comment; i++) {
-		szName[i] = NULL;
-	}
 
-	GetEnvironmentVariableA("QUERY_STRING", szName, 256);
+
+	GetEnvironmentVariableA("QUERY_STRING", comment, 256);
 	string getString;
 	for (int i = 0; i < 255; i++) {
 		if (comment[i] == NULL) {
@@ -30,7 +27,7 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 		}
 		getString = getString + comment[i];
 	}
-//		getString = "chubrWorker.cgi?method=setValue&pumpSpeed=123&pumpColor=aaa&coolerSpeed=456&coolerColor=zzz";
+	//getString = "chubrWorker.cgi?method=addData&temp=53777_memUsed=15000_cpu=0.05&devId=testStand";
 	getString.insert(0, "_");
 	getString.insert(getString.size(), "_");
 	for (;;) {

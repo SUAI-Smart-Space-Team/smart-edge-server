@@ -103,7 +103,7 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 			req = pDB->setPumpColor(arg);
 		}
 		if (nameVariable == "coolerColor") {
-			req = pDB->setCoolerSpeed(arg);
+			req = pDB->setCoolerColor(arg);
 		}
 		if (nameVariable == "switchAutoSpeedControl") {
 			req = pDB->setSwitchAutoSpeedControl(arg);
@@ -177,7 +177,7 @@ int main()
 		delete pDB;
 		return 0;
 	}
-	pWeb->out(createrJson("error", "Invalid argument method", 0, ""));
+	pWeb->out(createrJson("error", "Invalid argument method - "+ par, 0, ""));
 	delete pWeb;
 	delete pDB;
 	return 0;
