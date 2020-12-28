@@ -9,10 +9,10 @@ using namespace std;
 int main()
 {
     CWebServerWorker* pWeb = new CIISWorker;
-    if (pWeb->getParametr("method") == "addData") {
-        int i = 0;
-        i++;
+    if (pWeb->getParametr("method") == "example") {
+
         //event handler
+
     }
     delete pWeb;
     return 0;

@@ -18,7 +18,7 @@ string CIISWorker::out(string outputText) {//standard output
 }
 string CIISWorker::getParametr(string name) {// get GET parameter
 	std::map <std::string, std::string>::iterator it = getParMAP.find(name);
-	return it== getParMAP.end()? "" : getParMAP[name];
+	return it== getParMAP.end()? "NULL" : getParMAP[name];
 }
 CIISWorker::CIISWorker() {
 	newSession = true;
