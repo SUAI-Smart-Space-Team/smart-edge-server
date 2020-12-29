@@ -2,6 +2,9 @@
 #include <iostream>
 #include <windows.h>
 #include "CIISWorker.h"
+#include "../Tools.h"
+
+
 using namespace std;
 
 string CIISWorker::out(string outputText) {//standard output
@@ -30,6 +33,11 @@ string CIISWorker::receiveGetPar() {// get GET parameters
 	//getString = "chubrWorker.cgi?method=addData&temp=53777_memUsed=15000_cpu=0.05&devId=testStand";
 	getString.insert(0, "_");
 	getString.insert(getString.size(), "_");
+	getString = HandlerSpecialCharacters(getString, "%2E", ".");
+	getString = HandlerSpecialCharacters(getString, "%2C", ",");
+	getString = HandlerSpecialCharacters(getString, "%28", "");
+	getString = HandlerSpecialCharacters(getString, "%29", "");
+	getString = HandlerSpecialCharacters(getString, "+", "");
 	for (;;) {
 		int rasp = getString.find("&");
 		if (rasp == -1) {

@@ -11,7 +11,26 @@
 
 using namespace rapidjson;
 
+void writeHtml(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
+	FILE* h = fopen("index.html", "r+");
+	if (h == NULL) {
+		pWeb->out("can't open file index.html");
+		return;
+	}
+	fseek(h, 0, SEEK_END);
+	int len = ftell(h);
+	fseek(h, 0, SEEK_SET);
+	char* str = (char*)malloc(sizeof(char) * (len + 2));
+	int kol = fread(str, sizeof(char), len, h);
+	string html;
+	for (int i = 0; i < len; i++) {
+		html += str[i];
+	}
+	pWeb->out(html);
+	fclose(h);
 
+	return;
+}
 string addData(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	string temp = SampleString(postPar, (int)postPar.find("temp") + 4, (int)postPar.find("_", (int)postPar.find("temp")));
 	temp = to_string(atoi(temp.c_str()) / 1000) + "." + to_string(atoi(temp.c_str()) % 1000);
@@ -21,14 +40,22 @@ string addData(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	string mem = SampleString(postPar, (int)postPar.find("memUsed") + 7, (int)postPar.find("_", (int)postPar.find("memUsed")));
 	string devId = SampleString(postPar, (int)postPar.find("=", (int)postPar.find("devId")), (int)postPar.find("_", (int)postPar.find("devId")));
 
-	//pWeb->out(createrJson("result", "ok", 0, ""));
-	string answer = pDB->addData(cpu, mem, temp, devId);
+	string answer;
+	if ((atoi(temp.c_str()) / 1000 > -50) && (atoi(temp.c_str()) / 1000 < 150)) {
+		if (temp.size() < 20 && mem.size() < 20 && cpu.size() < 20 && devId.size() < 20) {
+			answer = pDB->addData(cpu, mem, temp, devId);
+		}
+	}
 	if (answer != "ok") {
 		pWeb->out(createrJson("error", answer, 0, ""));
 	}
 	else {
 		pWeb->out(createrJson("result", "ok", 0, ""));
 	}
+
+
+	
+
 	return "ok";
 }
 
@@ -75,6 +102,7 @@ string getTelemetry(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 }
 
 string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
+	writeHtml("", pWeb, pDB);
 	int pos = -1;
 	postPar = HandlerSpecialCharacters(postPar, "rgb", "");
 	bool ref = false;
@@ -95,38 +123,43 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 		string  arg = SampleString(postPar, pos, kon);
 		string sqlRequest;
 		string req;
-
-		if (nameVariable == "coolerSpeed") {
-			req = pDB->setCoolerSpeed(arg);
-		}
-		if (nameVariable == "pumpColor") {
-			req = pDB->setPumpColor(arg);
-		}
-		if (nameVariable == "coolerColor") {
-			req = pDB->setCoolerColor(arg);
-		}
-		if (nameVariable == "switchAutoSpeedControl") {
-			req = pDB->setSwitchAutoSpeedControl(arg);
-		}
-		if (nameVariable == "pumpSpeed") {
-			req = pDB->setPumpSpeed(arg);
-		}
-		if (req != "") {
-			if (req == "ok") {
-				rapidjson::Value object(rapidjson::kObjectType);
-				object.AddMember("result", "ok", allocator);
-				//object.AddMember("nameVariable", arg.c_str(), allocator);
-				//jsonStr = createrJson("ok", nameVariable + "=" + arg, 0, json);
+		if (arg != "") {
+			if (nameVariable == "coolerSpeed") {
+				if (atoi(arg.c_str()) > 40 && atoi(arg.c_str()) <= 100) {
+					req = pDB->setCoolerSpeed(arg);
+				}
 			}
-			else {
-				//jsonStr = createrJson("error", req, 0, json);
-				object.AddMember("result", "error", allocator);
+			if (nameVariable == "pumpColor") {
+				req = pDB->setPumpColor(arg);
+			}
+			if (nameVariable == "coolerColor") {
+				req = pDB->setCoolerColor(arg);
+			}
+			if (nameVariable == "switchAutoSpeedControl") {
+				req = pDB->setSwitchAutoSpeedControl(arg);
+			}
+			if (nameVariable == "pumpSpeed") {
+				if (atoi(arg.c_str()) > 40 && atoi(arg.c_str()) <= 100) {
+					req = pDB->setPumpSpeed(arg);
+				}
+			}
+			if (req != "") {
+				if (req == "ok") {
+					rapidjson::Value object(rapidjson::kObjectType);
+					object.AddMember("result", "ok", allocator);
+					//object.AddMember("nameVariable", arg.c_str(), allocator);
+					//jsonStr = createrJson("ok", nameVariable + "=" + arg, 0, json);
+				}
+				else {
+					//jsonStr = createrJson("error", req, 0, json);
+					object.AddMember("result", "error", allocator);
+				}
 			}
 		}
 	}
-	if (ref == true) {
-		pWeb->out("");
-	}
+	//if (ref == true) {
+	//	pWeb->out("");
+	//}
 	//if (json == "") {
 	//	//standartOut(createrJson("error", "Invalid argument nameVariable", 0, ""));
 	//	pWeb->out("<html><head><meta http-equiv =\"refresh\" content =\"1;URL=https://suai.chupr.ru\"/></head></html>");
@@ -140,14 +173,13 @@ string setValue(string postPar, CWebServerWorker* pWeb, CDbWorker* pDB) {
 	StringBuffer buffer;
 	Writer<StringBuffer> writer(buffer);
 	json.Accept(writer);
-	pWeb->out(buffer.GetString());
+	//pWeb->out(buffer.GetString());
 	return "ok";
 }
 
 int main()
 {
 	CDbWorker* pDB = new  CSQLiteDbWorker;
-
 	pDB->init("");
 	CWebServerWorker* pWeb = new CIISWorker;
 	string par = pWeb->receiveGetPar();
@@ -177,7 +209,7 @@ int main()
 		delete pDB;
 		return 0;
 	}
-	pWeb->out(createrJson("error", "Invalid argument method - "+ par, 0, ""));
+	pWeb->out(createrJson("error", "Invalid argument method - " + par, 0, ""));
 	delete pWeb;
 	delete pDB;
 	return 0;
