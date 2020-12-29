@@ -1,20 +1,20 @@
-#include <string>
 #include <iostream>
+#include <map>
+#include <string>
 #include <windows.h>//for GetEnvironmentVariableA
 #include "CIISWorker.h"
 #include "../Tools.h"
-#include <map>
 
 
 using namespace std;
 
-string CIISWorker::out(string outputText) {//standard output
+void CIISWorker::out(string outputText) {//standard output
 	if (newSession == true) {
 		cout << "Content-Type: text/html\n\n";
 		newSession = false;
 	}
 	cout << outputText;
-	return "";
+	return;
 }
 string CIISWorker::getParametr(string name) {// get GET parameter
 	std::map <std::string, std::string>::iterator it = getParMAP.find(name);

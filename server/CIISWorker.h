@@ -1,13 +1,12 @@
-#pragma once
-#include "CWebServerWorker.h"
 #include <map>
-
+#include "CWebServerWorker.h"
+#pragma once
 
 class CIISWorker :
     public CWebServerWorker
 {
 public:
-    std::string out(std::string outputText);//standard output
+    void out(std::string outputText);//standard output
     std::string getParametr(std::string name);
     CIISWorker();
 private:

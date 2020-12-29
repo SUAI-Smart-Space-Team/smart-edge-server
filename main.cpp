@@ -1,19 +1,16 @@
 ﻿#include <iostream>
 #include <string>
 #include "server/CIISWorker.h"
-
+#include "RAII.h"
 
 using namespace std;
 
 
 int main()
 {
-    CWebServerWorker* pWeb = new CIISWorker;
-    if (pWeb->getParametr("method") == "example") {
-
-        //event handler
-
+    RAII server;
+    if (server.pWeb->getParametr("method") == "example") {
+        //event handle
     }
-    delete pWeb;
     return 0;
 }
