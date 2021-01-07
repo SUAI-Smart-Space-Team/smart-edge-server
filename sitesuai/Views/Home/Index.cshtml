@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry Pi</title>
+
+    <script src="https://kit.fontawesome.com/8011d53e96.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="grid-container">
+        <h1>Raspberry Pi Monitoring</h1>
+
+        <div class="rp-container_1">
+            <p>#1</p>
+            <i class="fab fa-raspberry-pi"></i>
+        </div>
+
+        <div class="metricsContainer_1">
+            <svg id="temp_1" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" id="meterTmp" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class=" percents temp1">40%</text>
+                <text x="72" y="180" class="percents">°C</text>
+            </svg>
+
+            <svg id="cpu_1" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" id="meterCpu" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents cpu1">40%</text>
+                <text x="52" y="180" class="percents">CPU</text>
+
+            </svg>
+
+            <svg id="ram_1" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" id="meterRam" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents ram1">40%</text>
+                <text x="50" y="180" class="percents">RAM</text>
+            </svg>
+        </div>
+
+        <div class="rp-container_2">
+            <p>#2</p>
+            <i class="fab fa-raspberry-pi"></i>
+        </div>
+
+        <div class="metricsContainer_2">
+            <svg id="temp_2" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="72" y="180" class="percents">°C</text>
+            </svg>
+
+            <svg id="cpu_2" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="52" y="180" class="percents">CPU</text>
+
+            </svg>
+
+            <svg id="ram_2" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="50" y="180" class="percents">RAM</text>
+            </svg>
+        </div>
+
+        <div class="rp-container_3">
+            <p>#3</p>
+            <i class="fab fa-raspberry-pi"></i>
+        </div>
+
+        <div class="metricsContainer_3">
+            <svg id="temp_3" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="72" y="180" class="percents">°C</text>
+            </svg>
+
+            <svg id="cpu_3" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="52" y="180" class="percents">CPU</text>
+
+            </svg>
+
+            <svg id="ram_3" xmlns="http://www.w3.org/2000/svg" height="150" width="150" viewBox="0 0 200 200" data-value="40">
+                <path class="bg" stroke="#ccc" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" />
+                <path class="meter" stroke="#09c" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-dasharray="350" stroke-dashoffset="350" />
+                <text x="55" y="113" class="percents">40%</text>
+                <text x="50" y="180" class="percents">RAM</text>
+            </svg>
+        </div>
+
+        <div class="pomp-block">
+            <a href="#" id="toggler" onclick="document.getElementById('myform').submit(); return false;"><i class="fas fa-database"></i></a>
+
+            <div class="power-block">
+                <form id="myform" method="post" action="SetPValue">
+                    <input id="setValue" type="text" name="method" value="setValue">
+                    <div class="value">0%</div>
+                    <input name="pumpSpeed" type="range" min="0" max="100" step="1" value="0" id="range_1">
+                    <label for="range_1">POW &</label>
+                    <input id="pumpColor" name="pumpColor" type="text" value="">
+                    <label for="colorWell">Color:</label>
+                    <input type="color" value="#ff0000" id="colorWell">
+                </form>
+
+                <div class="clrPick" id="box">
+                    <div id="picker"></div>
+                    <div id="slider"></div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="fan-block" class="fan-input">
+            <a href="#" id="toggler_1" onclick="document.getElementById('myform_2').submit(); return false;"><i class="fas fa-fan"></i></i></a>
+
+            <div class="spins-block">
+                <form id="myform_2" method="post" action="SetValue">
+                    <div class="value_1">0%</div>
+                    <input name="coolerSpeed" type="range" min="0" max="100" step="1" value="0" id="range_2">
+                    <label for="range_2">SPINS &</label>
+                    <input id="coolerColor" name="coolerColor" type="text" value="">
+
+                    <input id="setValue" type="text" name="method" value="setValue">
+                    <label for="colorWell">Color:</label>
+                    <input type="color" value="#ff0000" id="colorWell_1">
+                    <input type="submit" value="Send" />
+                </form>
+                
+                <div class="clrPick" id="box_1">
+                    <div id="picker_1"></div>
+                    <div id="slider_1"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <script src="/js/progress.js"></script>
+
+    <script src="/js/display.js"></script>
+    <script src="/js/colorpicker.js"></script>
+    <script src="~/Scripts/slider.js"></script>
+
+
+</body>
+</html>
