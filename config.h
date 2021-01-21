@@ -1,2 +1,3 @@
 #pragma once
-#define use—acheVariable true;
+#define USE_CACHE_VARIAVLE 1
+//#define WEBSERVER IIS //IIS or Apache  

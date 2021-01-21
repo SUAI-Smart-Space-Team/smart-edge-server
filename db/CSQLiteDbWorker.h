@@ -4,6 +4,7 @@
 #include "CDbWorker.h"
 #include "../config.h"
 #include "../Tools.h"
+
 class CSQLiteDbWorker :
 	public CDbWorker
 {
@@ -25,7 +26,7 @@ private:
 	sqlite3* db«Point;
 	inline string selectValueFROMfrontData(string nameVarible);
 	inline string selectValueFROMfrontTEMP(string nameVarible);
-#if use—acheVariable == true
+#if USE_CACHE_VARIAVLE == true
 	string coolerSpeed;
 	string pumpColor;
 	string coolerColor;
@@ -35,6 +36,6 @@ private:
 	std::map <std::string, std::string> CPU;
 	std::map <std::string, std::string> TEMP;
 
-#endif // use—acheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 
 };

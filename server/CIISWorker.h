@@ -6,7 +6,7 @@ class CIISWorker :
     public CWebServerWorker
 {
 public:
-    void out(std::string outputText);//standard output
+    void out(std::string outputText, std::string ContentType);
     std::string getParametr(std::string name);
     CIISWorker();
 private:

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void CIISWorker::out(string outputText) {//standard output
+void CIISWorker::out(string outputText,string ContentType) {//standard output
 	if (newSession == true) {
 		cout << "Content-Type: text/html\n\n";
 		newSession = false;
@@ -16,10 +16,14 @@ void CIISWorker::out(string outputText) {//standard output
 	cout << outputText;
 	return;
 }
+
+
 string CIISWorker::getParametr(string name) {// get GET parameter
 	std::map <std::string, std::string>::iterator it = getParMAP.find(name);
 	return it== getParMAP.end()? "NULL" : getParMAP[name];
 }
+
+
 CIISWorker::CIISWorker() {
 	newSession = true;
 
@@ -33,7 +37,11 @@ CIISWorker::CIISWorker() {
 		}
 		getString = getString + comment[i];
 	}
-	getString = "method=addData&temp=53777_memUsed=15000_cpu=0.05&devId=testStand";
+#if _DEBUG
+	getString = "method=getTelemetry&deviceId=testStand&v=1";
+#endif // _DEBUG
+
+	
 	getString.insert(0, "_");
 	getString.insert(getString.size(), "_");
 	getString = HandlerSpecialCharacters(getString, "%2E", ".");

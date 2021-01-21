@@ -7,7 +7,6 @@
 
 
 
-
 using namespace std;
 
 
@@ -42,13 +41,13 @@ string CSQLiteDbWorker::init(string path) {//open db
 	else {
 		return "ok";
 	}
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == 1
 	coolerSpeed="null";
 	pumpColor = "null";
 	coolerColor = "null";
 	switchAutoSpeedControl = "null";
 	pumpSpeed = "null";
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == 1
 	return "ok";
 }
 
@@ -94,37 +93,37 @@ inline string CSQLiteDbWorker::selectValueFROMfrontTEMP(string nameVarible) {
 
 
 string CSQLiteDbWorker::getPumpColor() {
-#if	useÑacheVariable == true
+#if USE_CACHE_VARIAVLE
 	if (pumpColor != "null")
 		return pumpColor;
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontData("pumpColor");
 }
 
 
 string CSQLiteDbWorker::getPumpSpeed() {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == true
 	if (pumpSpeed != "null")
 		return pumpSpeed;
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontData("pumpSpeed");
 }
 
 
 string CSQLiteDbWorker::getCoolerColor() {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == true
 	if (coolerColor != "null")
 		return coolerColor;
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontData("coolerColor");
 }
 
 
 string CSQLiteDbWorker::getCoolerSpeed() {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == true
 	if (coolerSpeed != "null")
 		return coolerSpeed;
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontData("coolerSpeed");
 }
 
@@ -132,34 +131,34 @@ string CSQLiteDbWorker::getCoolerSpeed() {
 
 
 string CSQLiteDbWorker::getTemp(string idDevice) {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == true
 	std::map <std::string, std::string>::iterator it = TEMP.find(idDevice);
 	if (it != TEMP.end()) {
 		return TEMP[idDevice];
 	}
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontTEMP("temp");
 }
 
 
 string CSQLiteDbWorker::getCPU(string idDevice) {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == true
 	std::map <std::string, std::string>::iterator it = CPU.find(idDevice);
 	if (it != CPU.end()) {
 		return CPU[idDevice];
 	}
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontTEMP("CPU");
 }
 
 
 
 string CSQLiteDbWorker::getRAM(string idDevice) {
-#if	useÑacheVariable == true
+#if	USE_CACHE_VARIAVLE == 1
 	std::map <std::string, std::string>::iterator it = RAM.find(idDevice);
 	if (it != RAM.end()) {
 		return RAM[idDevice];
 	}
-#endif // useÑacheVariable == true
+#endif // USE_CACHE_VARIAVLE == true
 	return selectValueFROMfrontTEMP("RAM");
 }

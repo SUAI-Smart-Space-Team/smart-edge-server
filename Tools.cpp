@@ -46,43 +46,6 @@ string GetStringDate() {
     return t;
 }
 
-
-string createrJson(string namePar, string strPar, int intPar, string oldJson) {
-    if (oldJson != "") {
-        oldJson = SampleString(oldJson, (int)oldJson.find("["), (int)oldJson.find("]"));
-    }
-    string json;
-    if (strPar == "") {
-        json = "{\"" + namePar + "\":" + to_string(intPar) + "}";
-    }
-    else {
-        json = "{\"" + namePar + "\":\"" + strPar + "\"}";
-    }
-    if (oldJson != "") {
-        return "[" + oldJson + "," + json + "]";
-    }
-    else {
-        return "[" + json + "]";
-    }
-}
-string createrJson1(string namePar, string strPar, int intPar, string oldJson) {
-    if (oldJson != "") {
-        oldJson = SampleString(oldJson, (int)oldJson.find("[") + 1, (int)oldJson.find("]") - 1);
-    }
-    string json;
-    if (strPar == "") {
-        json = "\"" + namePar + "\":" + to_string(intPar) + "";
-    }
-    else {
-        json = "\"" + namePar + "\":\"" + strPar + "\"";
-    }
-    if (oldJson != "") {
-        return "[{" + oldJson + "," + json + "}]";
-    }
-    else {
-        return "[{" + json + "}]";
-    }
-}
 string HandlerSpecialCharacters(string url, string designation, string  replacement) {
     int nach = 0;
     int kon = 0;
