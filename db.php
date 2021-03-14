@@ -1,4 +1,9 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+
 require_once 'connection.php'; // подключаем скрипт 
 
 class dbInterface{
@@ -13,7 +18,7 @@ function __destruct(){
 	mysqli_close($this->link);
 }
 function selectValue($nameTable,$nameVarible){
-	$query ="select value FROM frontData $nameTable WHERE nameVarible=\"$nameVarible\"";
+	$query ="select value FROM frontdata $nameTable WHERE nameVarible=\"$nameVarible\"";
 	$result = mysqli_query($this->link, $query) or die("error" . mysqli_error($this->link)); 
 	if($result)
 	{

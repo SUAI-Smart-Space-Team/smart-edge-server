@@ -30,6 +30,7 @@
 						$db->updateValue("frontData","coolerSpeed",$_GET["coolerSpeed"]);
 					}
 				}
+				//include "test.php";
 			?>
 			
 			
@@ -80,7 +81,11 @@
                       <label for="range_1">POW &</label>
                       <input id="pumpColor" name="pumpColor" type="text" value=""> 
                       <label for="colorWell">Color:</label>
-                      <input type="color" value="#ff0000" id="colorWell">
+                      <input type="color" value="<?php
+					  require_once 'db.php';	
+					  $db = new dbInterface("frontData");
+					  $rgbarr = explode(",",$db->selectValue("frontData","pumpColor"),3);
+					  echo sprintf("#%02x%02x%02x", $rgbarr[0], $rgbarr[1], $rgbarr[2]);?>" id="colorWell">
                     </form>
                     
                     <div class="clrPick" id="box">
@@ -106,7 +111,11 @@
                       <input id="coolerColor" name="coolerColor" type="text" value=""> 
                       <input id="setValue" type="text" name="method" value="setValue">
                       <label for="colorWell">Color:</label>
-                      <input type="color" value="#ff0000" id="colorWell_1">
+                      <input type="color" value="<?php
+					  require_once 'db.php';
+					  $db = new dbInterface("frontData");
+					  $rgbarr = explode(",",$db->selectValue("frontData","coolerColor"),3);
+					  echo sprintf("#%02x%02x%02x", $rgbarr[0], $rgbarr[1], $rgbarr[2]);?>" id="colorWell_1">
                     </form>
 
                     <div class="clrPick" id="box_1">
