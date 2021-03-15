@@ -6,6 +6,6 @@ ini_set('display_startup_errors', 1);
 
 $host = 'db:3306'; // адрес сервера 
 $database = 'compstore'; // имя базы данных
-$user = 'root'; // имя пользователя
-$password = '1234'; // пароль))))
+$user = getenv('MYSQL_USER');; // имя пользователя
+$password = getenv('MYSQL_PASSWORD');; // пароль
 ?>
