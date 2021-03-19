@@ -18,7 +18,7 @@ function __destruct(){
 	mysqli_close($this->link);
 }
 function selectValue($nameTable,$nameVarible){
-	$query ="select value FROM frontdata $nameTable WHERE nameVarible=\"$nameVarible\"";
+	$query ="select value FROM $nameTable $nameTable WHERE nameVarible=\"$nameVarible\"";
 	$result = mysqli_query($this->link, $query) or die("error" . mysqli_error($this->link)); 
 	if($result)
 	{
