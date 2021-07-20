@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 
+FROM ubuntu:20.04 
 ENV DEBIAN_FRONTEND noninteractive
 RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 RUN apt-get update && \
